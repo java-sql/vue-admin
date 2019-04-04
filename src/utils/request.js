@@ -13,7 +13,7 @@ const service = axios.create({
 service.interceptors.request.use(
     config => {
         if (store.getters.token) {
-            config.headers['X-Token'] = getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+            config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
         }
         return config
     },
@@ -38,8 +38,8 @@ service.interceptors.response.use(
                 duration: 5 * 1000
             })
 
-            // 50008:非法的token; 50012:其他客户端登录了;  50014:Token 过期了;
-            if (res.resCode === 50008 || res.resCode === 50012 || res.resCode === 50014) {
+            // 50001: token 是空的; 50002:过期了;  50003:Token 失效;
+            if (res.resCode === 50001 || res.resCode === 50002 || res.resCode === 50003) {
                 MessageBox.confirm(
                     '你已被登出，可以取消继续留在该页面，或者重新登录',
                     '确定登出',

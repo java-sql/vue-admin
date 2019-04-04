@@ -22,7 +22,7 @@ import Layout from '../views/layout/Layout'
     breadcrumb: false            if false, the item will hidden in breadcrumb(default is true)
   }
 **/
-export const constantRouterMap = [
+export const constantRoutes = [
     { path: '/login', component: () => import('@/views/login/index'), hidden: true },
     { path: '/404', component: () => import('@/views/404'), hidden: true },
 
@@ -145,8 +145,11 @@ export const constantRouterMap = [
     { path: '*', redirect: '/404', hidden: true }
 ]
 
+export const asyncRoutes = [
+]
+
 export default new Router({
     // mode: 'history', //后端支持可开
     scrollBehavior: () => ({ y: 0 }),
-    routes: constantRouterMap
+    routes: constantRoutes
 })
